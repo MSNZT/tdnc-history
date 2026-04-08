@@ -16,9 +16,10 @@ export default function Home() {
           alt="ornate frame"
           fill
           priority
+          decoding="sync"
           quality={100}
           sizes="100vw"
-          className="object-cover object-center scale-105"
+          className="object-cover object-center scale-100"
         />
       </div>
 
