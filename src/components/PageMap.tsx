@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { regions } from "../data/mock-regions";
 import { useState } from "react";
 
@@ -16,22 +17,21 @@ export const PageMap = () => {
 
   return (
     <div className="relative flex justify-center items-center w-full h-screen overflow-hidden">
-      <div className="absolute inset-0 -z-10 bg-[url(/bg-age.png)] bg-no-repeat bg-size-[100%_100%]"></div>
+      <Image src="/bg-age.avif" alt="Карта" fill priority />
 
-      <div className="relative">
-        <img className="w-full" src="/map3.png" alt="Карта" />
+      <div className="relative w-[1536px] h-[1024px]">
+        <Image src="/map.avif" alt="Карта" fill priority />
 
         <svg
-          className="absolute top-0 inset-0"
+          className="absolute top-0 inset-0 w-full h-full"
           viewBox={`0 0 ${IMAGE_WIDTH} ${IMAGE_HEIGHT}`}
           preserveAspectRatio="none"
-          style={{ width: "100%", height: "100%" }}
           onClick={handleBackgroundClick}>
           {regions.map((region) => {
             const isHovered = hoveredId === region.id;
             const isSelected = selectedId === region.id;
 
-            const iconSrc = region.type === "artist" ? "/brush.png" : "/pencil.png";
+            const iconSrc = region.type === "artist" ? "/brush.webp" : "/pencil.webp";
             const iconSize = isSelected ? 60 : 50;
 
             return (
@@ -44,10 +44,7 @@ export const PageMap = () => {
                     e.stopPropagation();
                     setSelectedId(region.id);
                   }}
-                  style={{
-                    cursor: "pointer",
-                    transition: "all 0.2s ease",
-                  }}
+                  className="cursor-pointer transition-all duration-200 ease-in"
                   fill={isHovered ? "rgba(255, 255, 255, 0.22)" : "transparent"}
                   stroke={isSelected ? "rgba(80, 40, 10, 1)" : "none"}
                   strokeWidth={isSelected ? 2 : 0}
@@ -60,10 +57,7 @@ export const PageMap = () => {
                   y={region.cy - iconSize / 2}
                   width={iconSize}
                   height={iconSize}
-                  style={{
-                    transition: "all 0.2s ease",
-                    cursor: "pointer",
-                  }}
+                  className="cursor-pointer transition-all duration-200 ease-in"
                   pointerEvents="none"
                 />
               </g>
