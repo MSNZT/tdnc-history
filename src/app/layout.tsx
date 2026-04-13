@@ -1,22 +1,32 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Marck_Script } from "next/font/google";
+import { Marck_Script, Kurale, PT_Serif, Bad_Script } from "next/font/google";
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 const marckScript = Marck_Script({
   weight: "400",
   subsets: ["cyrillic"],
   variable: "--font-handwriting",
   display: "swap",
+});
+
+const kurale = Kurale({
+  weight: "400",
+  subsets: ["cyrillic"],
+  variable: "--font-kurale",
+});
+
+const titleFont = PT_Serif({
+  weight: ["400", "700"],
+  subsets: ["cyrillic"],
+  display: "swap",
+  variable: "--font-pt_serif",
+});
+
+const scriptFont = Bad_Script({
+  weight: "400",
+  subsets: ["cyrillic"],
+  display: "swap",
+  variable: "--font-bad_script",
 });
 
 export const metadata: Metadata = {
@@ -31,8 +41,8 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${marckScript.variable} h-full antialiased`}>
+      lang="ru"
+      className={`${marckScript.variable} ${kurale.variable} ${scriptFont.variable} ${titleFont.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );

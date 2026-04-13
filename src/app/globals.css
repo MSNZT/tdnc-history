@@ -7,6 +7,9 @@
 
 @theme {
   --font-hand: var(--font-handwriting);
+  --font-kurale: var(--font-kurale);
+  --font-badscript: var(--font-bad_script);
+  --font-ptserif: var(--font-pt_serif);
 
   @keyframes expand {
     from { width: 25px; }
@@ -38,4 +41,28 @@ body {
   padding: 0;
   overflow: hidden;
 }
+
+.vintage-border {
+  position: relative;
+}
+        .vintage-border::before {
+            content: '';
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            right: 4px;
+            bottom: 4px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            pointer-events: none;
+        }
+        .corner-decoration {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #d4af37;
+        }
+        .corner-tl { top: 6px; left: 6px; border-right: none; border-bottom: none; }
+        .corner-tr { top: 6px; right: 6px; border-left: none; border-bottom: none; }
+        .corner-bl { bottom: 6px; left: 6px; border-right: none; border-top: none; }
+        .corner-br { bottom: 6px; right: 6px; border-left: none; border-top: none; }
 

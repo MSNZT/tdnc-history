@@ -3,49 +3,65 @@ import Link from "next/link";
 
 const links = [
   { href: "/golden-age", title: "Золотой век" },
-  { href: "/", title: "Серебряный век" },
-  { href: "/", title: "Современники" },
+  { href: "/silver-age", title: "Серебряный век" },
+  { href: "/contemporary", title: "Современники" },
 ];
 
 export default function Home() {
   return (
-    <main className="relative h-full w-full overflow-hidden bg-black flex items-center justify-center">
-      <div className="absolute inset-0 z-0 pointer-events-none">
+    <main className="relative min-h-screen w-full overflow-hidden bg-black flex flex-col items-center justify-center p-4">
+      <div className="absolute inset-0 z-0">
         <Image
-          src="/main-bg.avif"
-          alt="ornate frame"
+          src="/main-bg.webp"
+          alt="background"
           fill
           priority
-          decoding="sync"
-          quality={100}
+          className="object-cover object-center"
           sizes="100vw"
-          className="object-cover object-center scale-100"
         />
       </div>
 
-      <div className="relative z-10 flex flex-col items-center gap-[2vh]">
-        {links.map((l) => (
-          <Link
-            href={l.href}
-            key={l.title}
-            className="
-              font-hand
-              font-bold
-              h-[clamp(120px,12vw,200px)] 
-              aspect-360/172
-              bg-[url(/button.avif)] bg-contain bg-no-repeat bg-center
-              flex items-center justify-center
-              text-[clamp(1.4rem,2.2vw,2.2rem)]
-              text-[#4a3421]
-              pb-[2.5%] 
-              transition-all duration-300 ease-out
-              hover:scale-105 hover:brightness-110
-              hover:drop-shadow-[0_0_25px_rgba(212,175,55,0.8)]
-              active:scale-95
-              px-10">
-            {l.title}
-          </Link>
-        ))}
+      <div className="mt-30 relative z-10 flex flex-col items-center justify-center w-full max-w-5xl gap-[4vh] lg:gap-[4vh]">
+        <h1 className="flex flex-col items-center text-center gap-2 group">
+          <span className="font-badscript text-[clamp(1.2rem,2.5vw,2rem)] leading-tight text-stone-800">
+            Традиционные духовно-нравственные
+          </span>
+          <span className="uppercase text-red-900 font-ptserif text-[clamp(1.5rem,3vw,2.5rem)] leading-none font-bold tracking-tight">
+            ценности через Российскую культуру
+          </span>
+          <span className="font-badscript text-[clamp(1rem,1.8vw,2rem)] italic text-stone-700">
+            (писатели, поэты, художники)
+          </span>
+        </h1>
+
+        <nav className="flex flex-col items-center gap-[2vh] w-full">
+          {links.map((l) => (
+            <Link
+              href={l.href}
+              key={l.title}
+              className="
+                relative
+                font-hand font-bold
+                w-[clamp(280px,40vw,250px)]
+                aspect-360/172
+                bg-[url(/button.avif)] bg-contain bg-no-repeat bg-center
+                flex items-center justify-center
+                text-[clamp(1.5rem,2vw,1.7rem)]
+                text-[#4a3421]
+                whitespace-nowrap 
+                pb-[1%] 
+                px-[15%]
+                text-center
+                leading-tight
+                transition-all duration-300 ease-out
+                hover:scale-105 hover:brightness-110
+                hover:drop-shadow-[0_0_30px_rgba(212,175,55,0.4)]
+                active:scale-95
+              ">
+              {l.title}
+            </Link>
+          ))}
+        </nav>
       </div>
     </main>
   );
