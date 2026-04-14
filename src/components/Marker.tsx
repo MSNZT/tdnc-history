@@ -4,24 +4,31 @@ interface MarkerProps {
   marker: Marker;
   isSelected: boolean;
   handleSelect: () => void;
+  position: { left: number; top: number };
 }
 
-export const MarkerMap = ({ marker, handleSelect, isSelected }: MarkerProps) => {
+export const MarkerMap = ({ marker, handleSelect, isSelected, position }: MarkerProps) => {
   return (
     <div
-      key={`icon-${marker.id}`}
-      className="absolute transition-transform duration-300 cursor-pointer"
+      className="absolute cursor-pointer transition-transform duration-300"
       style={{
-        left: `${marker.cx}px`,
-        top: `${marker.cy}px`,
+        left: `${(position.left / 1658) * 100}%`,
+        top: `${(position.top / 762) * 100}%`,
         transform: `translate(-50%, -50%) scale(${isSelected ? 1.3 : 1})`,
         zIndex: isSelected ? 40 : 10,
+        width: "clamp(30px, 5vw, 50px)",
+        height: "clamp(30px, 5vw, 50px)",
+        pointerEvents: "auto",
+      }}
+      onClick={(e) => {
+        e.stopPropagation();
+        handleSelect();
       }}>
       <img
-        onClick={handleSelect}
         src={marker.type === "artist" ? "/brush.webp" : "/pencil.webp"}
-        className="w-[50px] h-[50px]"
-        alt=""
+        className="w-full h-full object-contain pointer-events-none"
+        alt={marker.name}
+        draggable={false}
       />
     </div>
   );
