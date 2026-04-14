@@ -29,7 +29,7 @@ export const PageMap = ({ markers }: { markers: Marker[] }) => {
       } else if (width < 1024) {
         return 1.0;
       } else {
-        return 1.4;
+        return 1.05;
       }
     };
 
