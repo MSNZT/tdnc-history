@@ -57,16 +57,12 @@ export const PageMap = ({ markers }: { markers: Marker[] }) => {
       cleanup();
 
       if (isExpanded) {
-        // Закрываем текущий свиток
         setIsExpanded(false);
         pendingMarkerIdRef.current = markerId;
 
         timeoutRef.current = setTimeout(() => {
-          // Меняем маркер ПОСЛЕ закрытия
           setSelectedMarkerId(pendingMarkerIdRef.current);
           pendingMarkerIdRef.current = null;
-
-          // Используем requestAnimationFrame для плавного открытия
           requestAnimationFrame(() => {
             requestAnimationFrame(() => {
               setIsExpanded(true);
@@ -75,7 +71,6 @@ export const PageMap = ({ markers }: { markers: Marker[] }) => {
         }, ANIMATION_DURATION);
       } else {
         setSelectedMarkerId(markerId);
-        // Небольшая задержка перед открытием
         setTimeout(() => {
           setIsExpanded(true);
         }, 50);
@@ -114,7 +109,7 @@ export const PageMap = ({ markers }: { markers: Marker[] }) => {
         limitToBounds={false}
         centerOnInit={true}
         wheel={{ step: 0.03 }}
-        pinch={{ step: 0.1 }}
+        pinch={{ step: 5, disabled: false }}
         panning={{ disabled: false }}
         doubleClick={{ disabled: true }}>
         {({ zoomIn, zoomOut, resetTransform }) => (
