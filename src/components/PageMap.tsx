@@ -57,16 +57,28 @@ export const PageMap = ({ markers }: { markers: Marker[] }) => {
       cleanup();
 
       if (isExpanded) {
+        // Закрываем текущий свиток
         setIsExpanded(false);
         pendingMarkerIdRef.current = markerId;
+
         timeoutRef.current = setTimeout(() => {
+          // Меняем маркер ПОСЛЕ закрытия
           setSelectedMarkerId(pendingMarkerIdRef.current);
-          setIsExpanded(true);
           pendingMarkerIdRef.current = null;
+
+          // Используем requestAnimationFrame для плавного открытия
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              setIsExpanded(true);
+            });
+          });
         }, ANIMATION_DURATION);
       } else {
         setSelectedMarkerId(markerId);
-        setTimeout(() => setIsExpanded(true), 50);
+        // Небольшая задержка перед открытием
+        setTimeout(() => {
+          setIsExpanded(true);
+        }, 50);
       }
     },
     [selectedMarkerId, isExpanded, cleanup]

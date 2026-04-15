@@ -16,12 +16,17 @@ export default function Home() {
           alt="background"
           fill
           priority
-          className="object-cover object-center"
+          className="
+            object-cover object-center
+            md:object-fill
+            lg:object-cover lg:object-top
+            xl:object-fill
+          "
           sizes="100vw"
         />
       </div>
 
-      <div className="mt-30 relative z-10 flex flex-col items-center justify-center w-full max-w-5xl gap-[4vh] lg:gap-[4vh]">
+      <div className="mt-30 relative z-10 flex flex-col items-center justify-center w-full max-w-5xl gap-[2vh] lg:gap-[2vh]">
         <h1 className="flex flex-col items-center text-center gap-2 group">
           <span className="font-badscript text-[clamp(1.2rem,2.5vw,2rem)] leading-tight text-stone-800">
             Традиционные духовно-нравственные
@@ -42,11 +47,11 @@ export default function Home() {
               className="
                 relative
                 font-hand font-bold
-                w-[clamp(280px,40vw,250px)]
+                w-[clamp(200px,40vw,250px)]
                 aspect-360/172
                 bg-[url(/button.avif)] bg-contain bg-no-repeat bg-center
                 flex items-center justify-center
-                text-[clamp(1.5rem,2vw,1.7rem)]
+                text-[clamp(1.125rem,2vw,1.7rem)]
                 text-[#4a3421]
                 whitespace-nowrap 
                 pb-[1%] 
