@@ -39,19 +39,19 @@ export const CultureInfo = ({ cultureInfo, duration, isExpanded, onClose }: Cult
           className={`fixed top-0 left-0 right-0 z-50 transition-transform duration-500 ease-out ${
             isExpanded ? "translate-y-0" : "-translate-y-full"
           }`}>
-          <div className="relative mx-4 mt-4 max-h-[90vh] overflow-y-auto rounded-b-2xl shadow-2xl">
+          <div className="relative mx-4 mt-4 max-h-[90vh] rounded-b-2xl shadow-2xl">
             <img src="/paper-mobile.webp" className="absolute inset-0 w-full h-full object-cover rounded-2xl" alt="" />
 
             <button
               onClick={onClose}
-              className="absolute top-3 right-3 w-8 h-8 rounded-full bg-[#3d2817] text-[#f4e4c1] flex items-center justify-center hover:bg-[#4a3320] transition-colors z-20">
+              className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-[#3d2817] text-[#f4e4c1] flex items-center justify-center hover:bg-[#4a3320] transition-colors z-20">
               ✕
             </button>
 
-            <div className="relative z-10 p-6 pt-12">
+            <div className="relative z-10 p-6 pt-5">
               <div className="flex flex-col md:flex-row gap-4">
                 <div className="rounded-xl overflow-hidden mx-auto md:mx-0">
-                  <img className="w-full h-48 object-cover" src={cultureInfo?.imageUrl} alt="" />
+                  <img className="w-full h-50 object-cover" src={cultureInfo?.imageUrl} alt="" />
                 </div>
 
                 <div className="flex-1">
@@ -104,7 +104,7 @@ export const CultureInfo = ({ cultureInfo, duration, isExpanded, onClose }: Cult
               <div className="flex justify-center items-center h-64">
                 <div className="w-[1.5px] h-full bg-stone-500 mask-[linear-gradient(to_bottom,transparent,black_20%,black_80%,transparent)]" />
               </div>
-              <div className="flex flex-col gap-2 self-start">
+              <div className="flex flex-col gap-2 self-start mt-4">
                 <h2 className="text-4xl font-serif text-[#4a321f]">{cultureInfo?.author}</h2>
                 {cultureInfo?.from && <p className="text-lg italic text-[#5d4431]">{cultureInfo.from}</p>}
                 <p className="text-lg italic text-[#5d4431]">{cultureInfo?.description}</p>
