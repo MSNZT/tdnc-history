@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { Marker } from "../app/(age)/[...slug]/data";
 import { useEffect, useState } from "react";
@@ -40,7 +41,16 @@ export const CultureInfo = ({ cultureInfo, duration, isExpanded, onClose }: Cult
             isExpanded ? "translate-y-0" : "-translate-y-full"
           }`}>
           <div className="relative mx-4 mt-4 max-h-[90vh] rounded-b-2xl shadow-2xl">
-            <img src="/paper-mobile.webp" className="absolute inset-0 w-full h-full object-cover rounded-2xl" alt="" />
+            <div className="absolute inset-0 rounded-2xl overflow-hidden">
+              <Image
+                src="/paper-mobile.webp"
+                alt=""
+                fill
+                className="object-cover"
+                priority
+                sizes="100vw"
+              />
+            </div>
 
             <button
               onClick={onClose}
@@ -48,16 +58,27 @@ export const CultureInfo = ({ cultureInfo, duration, isExpanded, onClose }: Cult
               ✕
             </button>
 
-            <div className="relative z-10 p-6 pt-5">
+            <div className="relative z-10 p-6 pt-4">
               <div className="flex flex-col md:flex-row gap-4">
-                <div className="rounded-xl overflow-hidden mx-auto md:mx-0">
-                  <img className="w-full h-50 object-cover" src={cultureInfo?.imageUrl} alt="" />
+                <div className="relative w-full md:w-64 h-48 rounded-xl overflow-hidden mx-auto md:mx-0">
+                  <Image
+                    src={cultureInfo?.imageUrl || ""}
+                    alt={cultureInfo?.author || ""}
+                    fill
+                    className="object-cover"
+                    priority
+                    sizes="(max-width: 768px) 100vw, 256px"
+                  />
                 </div>
 
                 <div className="flex-1">
-                  <h2 className="text-2xl font-serif text-[#4a321f]">{cultureInfo?.author}</h2>
+                  <h2 className="text-2xl font-serif text-[#4a321f] mb-2">{cultureInfo?.author}</h2>
 
-                  {cultureInfo?.from && <p className="text-sm italic text-[#5d4431]">{cultureInfo.from}</p>}
+                  {cultureInfo?.from && (
+                    <p className="text-sm italic text-[#5d4431] mb-3">
+                      <span className="font-semibold not-italic">Места:</span> {cultureInfo.from}
+                    </p>
+                  )}
 
                   <p className="text-base text-[#5d4431] mb-4 leading-relaxed">{cultureInfo?.description}</p>
 
