@@ -66,3 +66,11 @@ body {
         .corner-bl { bottom: 6px; left: 6px; border-right: none; border-top: none; }
         .corner-br { bottom: 6px; right: 6px; border-left: none; border-top: none; }
 
+/* Для планшетной версии */
+@media (min-width: 800px) and (max-width: 1023px) {
+  .scroll-container {
+    transform: scale(0.9);
+    transform-origin: center center;
+  }
+}
+

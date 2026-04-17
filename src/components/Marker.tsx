@@ -10,6 +10,7 @@ interface MarkerProps {
 export const MarkerMap = ({ marker, handleSelect, isSelected, position }: MarkerProps) => {
   return (
     <div
+      data-marker
       className="absolute cursor-pointer transition-transform duration-300"
       style={{
         left: `${(position.left / 1658) * 100}%`,
@@ -27,7 +28,7 @@ export const MarkerMap = ({ marker, handleSelect, isSelected, position }: Marker
       <img
         src={marker.type === "artist" ? "/brush.webp" : "/pencil.webp"}
         className="w-full h-full object-contain pointer-events-none"
-        alt={marker.name}
+        alt={marker.author}
         draggable={false}
       />
     </div>

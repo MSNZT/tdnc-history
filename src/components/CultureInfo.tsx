@@ -1,16 +1,86 @@
+"use client";
+
 import Link from "next/link";
 import { Marker } from "../app/(age)/[...slug]/data";
+import { useEffect, useState } from "react";
 
 interface CultureInfoProps {
   cultureInfo?: Marker;
   duration: number;
   isExpanded: boolean;
+  onClose?: () => void;
 }
 
-export const CultureInfo = ({ cultureInfo, duration, isExpanded }: CultureInfoProps) => {
+export const CultureInfo = ({ cultureInfo, duration, isExpanded, onClose }: CultureInfoProps) => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  if (isMobile) {
+    return (
+      <>
+        <div
+          className={`fixed inset-0 bg-black/50 transition-opacity duration-500 z-40 ${
+            isExpanded ? "opacity-100" : "opacity-0 pointer-events-none"
+          }`}
+          onClick={onClose}
+        />
+
+        <div
+          data-scroll
+          className={`fixed top-0 left-0 right-0 z-50 transition-transform duration-500 ease-out ${
+            isExpanded ? "translate-y-0" : "-translate-y-full"
+          }`}>
+          <div className="relative mx-4 mt-4 max-h-[90vh] overflow-y-auto rounded-b-2xl shadow-2xl">
+            <img src="/paper-mobile.webp" className="absolute inset-0 w-full h-full object-cover rounded-2xl" alt="" />
+
+            <button
+              onClick={onClose}
+              className="absolute top-3 right-3 w-8 h-8 rounded-full bg-[#3d2817] text-[#f4e4c1] flex items-center justify-center hover:bg-[#4a3320] transition-colors z-20">
+              ✕
+            </button>
+
+            <div className="relative z-10 p-6 pt-12">
+              <div className="flex flex-col md:flex-row gap-4">
+                <div className="rounded-xl overflow-hidden mx-auto md:mx-0">
+                  <img className="w-full h-48 object-cover" src={cultureInfo?.imageUrl} alt="" />
+                </div>
+
+                <div className="flex-1">
+                  <h2 className="text-2xl font-serif text-[#4a321f]">{cultureInfo?.author}</h2>
+
+                  {cultureInfo?.from && <p className="text-sm italic text-[#5d4431]">{cultureInfo.from}</p>}
+
+                  <p className="text-base text-[#5d4431] mb-4 leading-relaxed">{cultureInfo?.description}</p>
+
+                  <Link
+                    href={cultureInfo?.url || ""}
+                    target="_blank"
+                    className="inline-block w-full bg-[#3d2817] text-[#f4e4c1] py-3 px-6 rounded-lg text-center hover:bg-[#4a3320] transition-all uppercase font-kurale">
+                    Подробнее
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  }
+
   return (
-    <div className="absolute bottom-10 z-50 flex items-center justify-center pointer-events-none w-full">
-      <div className="flex items-center justify-center cursor-pointer pointer-events-auto">
+    <div
+      data-scroll
+      className="fixed bottom-10 left-1/2 -translate-x-1/2 z-50 flex items-center justify-center pointer-events-none w-auto">
+      <div className="scroll-container flex items-center justify-center cursor-pointer pointer-events-auto">
         <img
           src="/roller-1.webp"
           className="w-[80px] h-[300px] shrink-0 block relative z-30 -mr-[15px] select-none"
@@ -34,24 +104,15 @@ export const CultureInfo = ({ cultureInfo, duration, isExpanded }: CultureInfoPr
               <div className="flex justify-center items-center h-64">
                 <div className="w-[1.5px] h-full bg-stone-500 mask-[linear-gradient(to_bottom,transparent,black_20%,black_80%,transparent)]" />
               </div>
-              <div className="flex flex-col gap-2 self-start mt-4">
-                <h2 className="text-4xl font-serif text-[#4a321f]">{cultureInfo?.name}</h2>
-                <p className="text-lg italic text-[#5d4431] mt-2">{cultureInfo?.description}</p>
-                <p className="text-lg italic text-[#5d4431] mt-2">{cultureInfo?.from}</p>
+              <div className="flex flex-col gap-2 self-start">
+                <h2 className="text-4xl font-serif text-[#4a321f]">{cultureInfo?.author}</h2>
+                {cultureInfo?.from && <p className="text-lg italic text-[#5d4431]">{cultureInfo.from}</p>}
+                <p className="text-lg italic text-[#5d4431]">{cultureInfo?.description}</p>
               </div>
               <Link
                 href={cultureInfo?.url || ""}
                 target="_blank"
-                className="mb-10 self-end relative height-[65px] bg-[#3d2817] p-2
-                      text-[#f4e4c1]
-                      font-cinzel
-                      text-2xl md:text-3xl
-                      border-4 double border-[#8b6914]
-                      shadow-[0_0_30px_rgba(139,105,20,0.3),inset_0_0_20px_rgba(0,0,0,0.5)]
-                      hover:bg-[#4a3320]
-                      hover:shadow-[0_0_40px_rgba(139,105,20,0.5),inset_0_0_20px_rgba(0,0,0,0.5)]
-                      transition-all duration-300
-                      uppercase">
+                className="mb-10 self-end bg-[#3d2817] p-2 text-[#f4e4c1] font-cinzel text-2xl md:text-3xl border-4 border-[#8b6914] shadow-[0_0_30px_rgba(139,105,20,0.3),inset_0_0_20px_rgba(0,0,0,0.5)] hover:bg-[#4a3320] hover:shadow-[0_0_40px_rgba(139,105,20,0.5),inset_0_0_20px_rgba(0,0,0,0.5)] transition-all duration-300 uppercase">
                 <span className="font-kurale">Подробнее</span>
               </Link>
             </div>

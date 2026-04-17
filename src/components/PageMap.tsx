@@ -43,6 +43,28 @@ export const PageMap = ({ markers }: { markers: Marker[] }) => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  useEffect(() => {
+    if (!isExpanded) return;
+
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+
+      const isScrollClick = target.closest("[data-scroll]");
+
+      if (!isScrollClick) {
+        handleCloseCultureInfo();
+      }
+    };
+
+    setTimeout(() => {
+      document.addEventListener("click", handleClickOutside);
+    }, 0);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [isExpanded]);
+
   const cleanup = useCallback(() => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
@@ -79,15 +101,15 @@ export const PageMap = ({ markers }: { markers: Marker[] }) => {
     [selectedMarkerId, isExpanded, cleanup]
   );
 
-  const handleClickOutside = useCallback(() => {
-    if (!isExpanded) return;
+  const handleCloseCultureInfo = useCallback(() => {
     cleanup();
     setIsExpanded(false);
+    setSelectedMarkerId(null);
     timeoutRef.current = setTimeout(() => {
       setSelectedMarkerId(null);
       setHighlightedMapId(null);
     }, ANIMATION_DURATION);
-  }, [isExpanded, cleanup]);
+  }, [cleanup]);
 
   useEffect(() => cleanup, [cleanup]);
 
@@ -102,7 +124,6 @@ export const PageMap = ({ markers }: { markers: Marker[] }) => {
       />
 
       <TransformWrapper
-        key={initialScale}
         initialScale={initialScale}
         minScale={0.5}
         maxScale={3}
@@ -155,7 +176,7 @@ export const PageMap = ({ markers }: { markers: Marker[] }) => {
                   className="absolute inset-0 w-full h-full"
                   viewBox={`0 0 ${MAP_BASE_WIDTH} ${MAP_BASE_HEIGHT}`}
                   preserveAspectRatio="xMidYMid meet"
-                  onClick={handleClickOutside}>
+                  onClick={handleCloseCultureInfo}>
                   {regions.map((region) => (
                     <path
                       key={region.id}
@@ -189,6 +210,7 @@ export const PageMap = ({ markers }: { markers: Marker[] }) => {
           duration={ANIMATION_DURATION}
           cultureInfo={activeMarker}
           isExpanded={isExpanded}
+          onClose={handleCloseCultureInfo}
         />
       )}
     </div>
