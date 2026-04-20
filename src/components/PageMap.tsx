@@ -104,7 +104,6 @@ export const PageMap = ({ markers }: { markers: Marker[] }) => {
   const handleCloseCultureInfo = useCallback(() => {
     cleanup();
     setIsExpanded(false);
-    setSelectedMarkerId(null);
     timeoutRef.current = setTimeout(() => {
       setSelectedMarkerId(null);
       setHighlightedMapId(null);
@@ -129,7 +128,7 @@ export const PageMap = ({ markers }: { markers: Marker[] }) => {
         maxScale={3}
         limitToBounds={false}
         centerOnInit={true}
-        wheel={{ step: 0.03 }}
+        wheel={{ step: 0.01 }}
         pinch={{ step: 5, disabled: false }}
         panning={{ disabled: false }}
         doubleClick={{ disabled: true }}>

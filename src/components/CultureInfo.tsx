@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Marker } from "../app/(age)/[...slug]/data";
-import { useEffect, useState } from "react";
+import { useMediaQuery } from "../hooks/useMediaQuery";
 
 interface CultureInfoProps {
   cultureInfo?: Marker;
@@ -13,17 +13,7 @@ interface CultureInfoProps {
 }
 
 export const CultureInfo = ({ cultureInfo, duration, isExpanded, onClose }: CultureInfoProps) => {
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 1024);
-    };
-
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
+  const isMobile = useMediaQuery("(max-width: 1023px)");
 
   if (isMobile) {
     return (
@@ -37,59 +27,58 @@ export const CultureInfo = ({ cultureInfo, duration, isExpanded, onClose }: Cult
 
         <div
           data-scroll
-          className={`fixed top-0 left-0 right-0 z-50 transition-transform duration-500 ease-out ${
+          className={`fixed inset-0 z-50 flex items-start justify-center transition-transform duration-500 ease-out ${
             isExpanded ? "translate-y-0" : "-translate-y-full"
           }`}>
-          <div className="relative mx-4 mt-4 max-h-[90vh] rounded-b-2xl shadow-2xl">
-            <div className="absolute inset-0 rounded-2xl overflow-hidden">
-              <Image
-                src="/paper-mobile.webp"
-                alt=""
-                fill
-                className="object-cover"
-                priority
-                sizes="100vw"
-              />
-            </div>
-
-            <button
-              onClick={onClose}
-              className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-[#3d2817] text-[#f4e4c1] flex items-center justify-center hover:bg-[#4a3320] transition-colors z-20">
-              ✕
-            </button>
-
-            <div className="relative z-10 p-6 pt-4">
-              <div className="flex flex-col md:flex-row gap-4">
-                <div className="relative w-full md:w-64 h-48 rounded-xl overflow-hidden mx-auto md:mx-0">
-                  <Image
-                    src={cultureInfo?.imageUrl || ""}
-                    alt={cultureInfo?.author || ""}
-                    fill
-                    className="object-cover"
-                    priority
-                    sizes="(max-width: 768px) 100vw, 256px"
-                  />
+          <div className="w-full h-full md:h-auto py-4 px-4">
+            <div className="relative w-full h-full max-h-full md:h-auto">
+              <div className="relative w-full h-full rounded-2xl overflow-hidden flex flex-col">
+                <div className="absolute inset-0">
+                  <Image src="/paper-mobile.webp" alt="" fill className="object-cover" priority sizes="100vw" />
                 </div>
 
-                <div className="flex-1">
-                  <h2 className="text-2xl font-serif text-[#4a321f] mb-2">{cultureInfo?.author}</h2>
+                <div className="relative z-10 p-6 pt-4 overflow-y-auto flex-1">
+                  <div className="flex flex-col md:flex-row gap-4">
+                    <div className="relative w-full md:w-64 h-48 rounded-xl overflow-hidden mx-auto md:mx-0 shrink-0">
+                      <Image
+                        src={cultureInfo?.imageUrl || ""}
+                        alt={cultureInfo?.author || ""}
+                        fill
+                        className="object-cover"
+                        priority
+                        sizes="(max-width: 768px) 100vw, 256px"
+                      />
+                    </div>
 
-                  {cultureInfo?.from && (
-                    <p className="text-sm italic text-[#5d4431] mb-3">
-                      <span className="font-semibold not-italic">Места:</span> {cultureInfo.from}
-                    </p>
-                  )}
+                    <div className="flex-1 min-h-0">
+                      <h2 className="text-2xl font-serif text-[#4a321f] mb-2">{cultureInfo?.author}</h2>
 
-                  <p className="text-base text-[#5d4431] mb-4 leading-relaxed">{cultureInfo?.description}</p>
+                      {cultureInfo?.from && (
+                        <p className="text-sm italic text-[#5d4431] mb-3">
+                          <span className="font-semibold not-italic">Места:</span> {cultureInfo.from}
+                        </p>
+                      )}
 
-                  <Link
-                    href={cultureInfo?.url || ""}
-                    target="_blank"
-                    className="inline-block w-full bg-[#3d2817] text-[#f4e4c1] py-3 px-6 rounded-lg text-center hover:bg-[#4a3320] transition-all uppercase font-kurale">
-                    Подробнее
-                  </Link>
+                      <p className="text-base text-[#5d4431] mb-4 leading-relaxed">{cultureInfo?.description}</p>
+
+                      {cultureInfo?.quote && <p className="text-[#5d4431] mb-3">{cultureInfo.quote}</p>}
+
+                      <Link
+                        href={cultureInfo?.url || ""}
+                        target="_blank"
+                        className="inline-block w-full bg-[#3d2817] text-[#f4e4c1] py-3 px-6 rounded-lg text-center hover:bg-[#4a3320] transition-all uppercase font-kurale">
+                        Подробнее
+                      </Link>
+                    </div>
+                  </div>
                 </div>
               </div>
+
+              <button
+                onClick={onClose}
+                className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-[#3d2817] text-[#f4e4c1] flex items-center justify-center hover:bg-[#4a3320] transition-colors z-20">
+                ✕
+              </button>
             </div>
           </div>
         </div>
@@ -125,10 +114,12 @@ export const CultureInfo = ({ cultureInfo, duration, isExpanded, onClose }: Cult
               <div className="flex justify-center items-center h-64">
                 <div className="w-[1.5px] h-full bg-stone-500 mask-[linear-gradient(to_bottom,transparent,black_20%,black_80%,transparent)]" />
               </div>
-              <div className="flex flex-col gap-2 self-start mt-4">
+              <div className="flex flex-col gap-2 self-start mt-4 overflow-y-auto md:overflow-y-visible">
                 <h2 className="text-4xl font-serif text-[#4a321f]">{cultureInfo?.author}</h2>
-                {cultureInfo?.from && <p className="text-lg italic text-[#5d4431]">{cultureInfo.from}</p>}
-                <p className="text-lg italic text-[#5d4431]">{cultureInfo?.description}</p>
+                {cultureInfo?.from && <p className="text-lg text-[#5d4431]">{cultureInfo.from}</p>}
+                <p className="text-lg text-[#5d4431]">{cultureInfo?.description}</p>
+
+                {cultureInfo?.quote && <p className="text-lg text-[#5d4431] mb-3">{cultureInfo.quote}</p>}
               </div>
               <Link
                 href={cultureInfo?.url || ""}

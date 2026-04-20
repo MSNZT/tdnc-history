@@ -5,6 +5,7 @@ export type Marker = {
   author: string;
   from?: string;
   description: string;
+  quote?: string;
   url: string;
   type: "artist" | "writer";
   imageUrl: string;
@@ -19,7 +20,9 @@ export const goldegAge: Marker[] = [
     type: "artist",
     imageUrl: "/images/1.webp",
     author: "Суриков Василий Иванович (1848-1916)",
-    description: "Сибирская красавица(1891)- написана в Красноярске",
+    description: "Сибирская красавица(1891) - написана в Красноярске",
+    quote:
+      "Цитата художника: «Я казак природный, потомственный. Мои предки с Ермаком в Сибирь пришли. Дух казацкий, вольный — это во мне от народа». Из автобиографических заметок",
     url: "https://my.tretyakov.ru/app/masterpiece/8464",
     mapId: 59,
   },
