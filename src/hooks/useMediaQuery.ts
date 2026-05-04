@@ -15,7 +15,6 @@ export function useMediaQuery(query: string): boolean {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-
     const mediaQueryList = window.matchMedia(query);
 
     if (mediaQueryList.matches !== matches) {

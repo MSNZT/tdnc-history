@@ -17,8 +17,8 @@ export const MarkerMap = ({ marker, handleSelect, isSelected, position }: Marker
         top: `${(position.top / 762) * 100}%`,
         transform: `translate(-50%, -50%) scale(${isSelected ? 1.3 : 1})`,
         zIndex: isSelected ? 40 : 10,
-        width: "clamp(30px, 5vw, 50px)",
-        height: "clamp(30px, 5vw, 50px)",
+        width: "clamp(30px, 5vw, 40px)",
+        height: "clamp(30px, 5vw, 40px)",
         pointerEvents: "auto",
       }}
       onClick={(e) => {

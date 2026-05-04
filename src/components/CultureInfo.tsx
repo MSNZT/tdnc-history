@@ -50,18 +50,14 @@ export const CultureInfo = ({ cultureInfo, duration, isExpanded, onClose }: Cult
                       />
                     </div>
 
-                    <div className="flex-1 min-h-0">
-                      <h2 className="text-2xl font-serif text-[#4a321f] mb-2">{cultureInfo?.author}</h2>
+                    <div className="flex flex-col flex-1 min-h-0 gap-1">
+                      <h2 className="text-2xl font-serif text-[#4a321f]">{cultureInfo?.author}</h2>
 
-                      {cultureInfo?.from && (
-                        <p className="text-sm italic text-[#5d4431] mb-3">
-                          <span className="font-semibold not-italic">Места:</span> {cultureInfo.from}
-                        </p>
-                      )}
+                      {cultureInfo?.from && <p className="text-sm italic text-[#5d4431]">{cultureInfo.from}</p>}
 
-                      <p className="text-base text-[#5d4431] mb-4 leading-relaxed">{cultureInfo?.description}</p>
+                      <p className="text-base text-[#5d4431] leading-relaxed">{cultureInfo?.description}</p>
 
-                      {cultureInfo?.quote && <p className="text-[#5d4431] mb-3">{cultureInfo.quote}</p>}
+                      {cultureInfo?.quote && <p className="text-[#5d4431]">{cultureInfo.quote}</p>}
 
                       <Link
                         href={cultureInfo?.url || ""}
@@ -107,14 +103,14 @@ export const CultureInfo = ({ cultureInfo, duration, isExpanded, onClose }: Cult
             <img src="/paper.webp" className="w-[1202px] h-[290px] block shrink-0 max-w-none" alt="" />
 
             <div
-              className={`absolute inset-0 flex items-center gap-5 pl-14 pr-32 transition-opacity duration-500 ${
+              className={`absolute inset-0 flex items-center gap-5 pl-7 pr-10 transition-opacity duration-500 ${
                 isExpanded ? "opacity-100 delay-700" : "opacity-0"
               }`}>
               <img className="w-[300px] h-[250px] object-cover rounded-xl" src={cultureInfo?.imageUrl} alt="" />
               <div className="flex justify-center items-center h-64">
                 <div className="w-[1.5px] h-full bg-stone-500 mask-[linear-gradient(to_bottom,transparent,black_20%,black_80%,transparent)]" />
               </div>
-              <div className="flex flex-col gap-2 self-start mt-4 overflow-y-auto md:overflow-y-visible">
+              <div className="flex flex-col gap-2 self-start mt-4 overflow-hidden">
                 <h2 className="text-4xl font-serif text-[#4a321f]">{cultureInfo?.author}</h2>
                 {cultureInfo?.from && <p className="text-lg text-[#5d4431]">{cultureInfo.from}</p>}
                 <p className="text-lg text-[#5d4431]">{cultureInfo?.description}</p>
