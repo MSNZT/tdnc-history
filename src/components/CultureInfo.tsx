@@ -54,6 +54,7 @@ export const CultureInfo = ({ cultureInfo, duration, isExpanded, onClose }: Cult
                       <h2 className="text-2xl font-serif text-[#4a321f]">{cultureInfo?.author}</h2>
 
                       {cultureInfo?.from && <p className="text-sm italic text-[#5d4431]">{cultureInfo.from}</p>}
+                      {cultureInfo?.location && <p className="text-sm italic text-[#5d4431]">{cultureInfo.location}</p>}
 
                       <p className="text-base text-[#5d4431] leading-relaxed">{cultureInfo?.description}</p>
 
@@ -107,22 +108,32 @@ export const CultureInfo = ({ cultureInfo, duration, isExpanded, onClose }: Cult
                 isExpanded ? "opacity-100 delay-700" : "opacity-0"
               }`}>
               <img className="w-[300px] h-[250px] object-cover rounded-xl" src={cultureInfo?.imageUrl} alt="" />
+
               <div className="flex justify-center items-center h-64">
                 <div className="w-[1.5px] h-full bg-stone-500 mask-[linear-gradient(to_bottom,transparent,black_20%,black_80%,transparent)]" />
               </div>
-              <div className="flex flex-col gap-2 self-start mt-4 overflow-hidden">
-                <h2 className="text-4xl font-serif text-[#4a321f]">{cultureInfo?.author}</h2>
-                {cultureInfo?.from && <p className="text-lg text-[#5d4431]">{cultureInfo.from}</p>}
-                <p className="text-lg text-[#5d4431]">{cultureInfo?.description}</p>
 
-                {cultureInfo?.quote && <p className="text-lg text-[#5d4431] mb-3">{cultureInfo.quote}</p>}
+              <div className="grid grid-cols-[1fr_auto] gap-x-2 self-start mt-4 overflow-hidden w-full">
+                <h2 className="col-span-2 text-4xl font-serif text-[#4a321f] mb-1 leading-tight">
+                  {cultureInfo?.author}
+                </h2>
+
+                <div className="flex flex-col gap-1 overflow-y-auto antique-scroll pr-4 min-h-[180px] max-h-[200px]">
+                  {cultureInfo?.from && <p className="text-lg text-[#5d4431]">{cultureInfo.from}</p>}
+                  {cultureInfo?.location && <p className="text-lg text-[#5d4431]">{cultureInfo.location}</p>}
+                  <p className="text-lg text-[#5d4431]">{cultureInfo?.description}</p>
+                  {cultureInfo?.quote && <p className="text-lg text-[#5d4431] italic">{cultureInfo.quote}</p>}
+                </div>
+
+                <div className="flex items-end pb-2">
+                  <Link
+                    href={cultureInfo?.url || ""}
+                    target="_blank"
+                    className="whitespace-nowrap bg-[#3d2817] p-2 px-6 text-[#f4e4c1] font-cinzel text-xl md:text-2xl border-4 border-[#8b6914] shadow-[0_0_30px_rgba(139,105,20,0.3),inset_0_0_20px_rgba(0,0,0,0.5)] hover:bg-[#4a3320] transition-all duration-300 uppercase">
+                    <span className="font-kurale">Подробнее</span>
+                  </Link>
+                </div>
               </div>
-              <Link
-                href={cultureInfo?.url || ""}
-                target="_blank"
-                className="mb-10 self-end bg-[#3d2817] p-2 text-[#f4e4c1] font-cinzel text-2xl md:text-3xl border-4 border-[#8b6914] shadow-[0_0_30px_rgba(139,105,20,0.3),inset_0_0_20px_rgba(0,0,0,0.5)] hover:bg-[#4a3320] hover:shadow-[0_0_40px_rgba(139,105,20,0.5),inset_0_0_20px_rgba(0,0,0,0.5)] transition-all duration-300 uppercase">
-                <span className="font-kurale">Подробнее</span>
-              </Link>
             </div>
           </div>
         </div>

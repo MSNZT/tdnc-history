@@ -21,87 +21,88 @@ export default function Home() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const scrollToTop = () => {
+  const onClickScrollTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
+    window.history.pushState(null, "", "/");
   };
 
   return (
     <main className="relative min-h-screen w-full bg-black flex flex-col items-center justify-start">
-      <section className="min-h-screen p-4">
+      <section className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-[#d7c5a9]">
         <div className="absolute inset-0 z-0">
           <Image src="/main-bg.webp" alt="background" fill priority className="object-cover object-top" sizes="100vw" />
         </div>
-        <div className="relative z-10 flex flex-col items-center w-full max-w-5xl gap-[2vh] pt-[200px] md:pt-[250px] xl:pt-[270px]">
-          <h1 className="flex flex-col items-center text-center gap-1 group">
-            <span className="font-badscript text-[clamp(1.2rem,2.2vw,1.8rem)] leading-tight text-stone-800">
-              Традиционные духовно-нравственные
-            </span>
-            <span className="uppercase text-red-900 font-ptserif text-[clamp(1.5rem,3vw,2.5rem)] leading-none font-bold tracking-tight">
-              ценности через Российскую культуру
-            </span>
-            <span className="font-badscript text-[clamp(1rem,1.8vw,1.8rem)] text-stone-700">
-              (писатели, поэты, художники)
-            </span>
-          </h1>
 
-          <Link
-            href="#about"
-            className="
-            absolute
-            top-[290px]
-            md:top-[330px]
-            lg:top-[370px]
-            right-5
-            md:right-25
-            cursor-pointer
-            w-8 h-8 
-            rounded-full 
-            flex items-center justify-center
-            bg-[#e8d5b5]
-            border-2 border-[#8b6914]
-            text-[#3d3226]
-            font-serif text-2xl font-bold
-            shadow-[0_4px_8px_rgba(0,0,0,0.3),inset_0_2px_4px_rgba(255,255,255,0.5)]
-            hover:shadow-[0_6px_12px_rgba(0,0,0,0.4),inset_0_2px_4px_rgba(255,255,255,0.6)]
-            hover:bg-[#f0e0c0]
-            hover:scale-110
-            active:scale-100
-            active:shadow-[0_2px_4px_rgba(0,0,0,0.3)]
-            transition-all duration-300
-  ">
-            i
-          </Link>
+        {/* Основной контейнер контента */}
+        <div className="relative z-10 w-full h-full max-w-5xl mx-auto">
+          {/* Позиционируем весь блок контента */}
+          <div className="absolute top-[28%] left-1/2 -translate-x-1/2 flex flex-col items-center w-full gap-[2vh]">
+            {/* Заголовок */}
+            <h1 className="flex flex-col items-center text-center gap-1 group">
+              <span className="font-badscript text-[clamp(1.1rem,2.2vh,1.8rem)] leading-tight text-stone-800">
+                Традиционные духовно-нравственные
+              </span>
+              <span className="uppercase text-red-900 font-ptserif text-[clamp(1.4rem,4.2vh,2.5rem)] leading-none font-bold tracking-tight">
+                ценности через Российскую культуру
+              </span>
+              <span className="font-badscript text-[clamp(0.9rem,1.8vh,1.6rem)] text-stone-700">
+                (писатели, поэты, художники)
+              </span>
+            </h1>
 
-          <nav className="flex flex-col items-center gap-[2vh] w-full">
-            {links.map((l) => (
+            <div className="relative flex flex-col items-center gap-[1.5vh] w-full mt-[2vh]">
               <Link
-                href={l.href}
-                key={l.title}
+                href="#about"
                 className="
-                relative
-                font-hand font-bold
-                w-[clamp(225px,18vw,280px)]
-                aspect-360/172
-                bg-[url(/button.avif)] bg-contain bg-no-repeat bg-center
-                flex items-center justify-center
-                text-[clamp(1.2rem,1.5vw,1.6rem)]
-                text-[#4a3421]
-                whitespace-nowrap 
-                pb-[1%] 
-                px-[15%]
-                text-center
-                leading-tight
-                transition-all duration-300 ease-out
-                hover:scale-105 hover:brightness-110
-                hover:drop-shadow-[0_0_30px_rgba(212,175,55,0.4)]
-                active:scale-95
-              ">
-                {l.title}
+                  absolute
+                  -top-6
+                  right-[5%] md:right-[15%] lg:right-[20%]
+                  cursor-pointer
+                  w-8 h-8 
+                  rounded-full 
+                  flex items-center justify-center
+                  bg-[#e8d5b5]
+                  border-2 border-[#8b6914]
+                  text-[#3d3226]
+                  font-serif text-2xl font-bold
+                  shadow-[0_4px_8px_rgba(0,0,0,0.3),inset_0_2px_4px_rgba(255,255,255,0.5)]
+                  hover:bg-[#f0e0c0]
+                  hover:scale-110
+                  transition-all duration-300
+                  z-20
+                ">
+                i
               </Link>
-            ))}
-          </nav>
+
+              <nav className="flex flex-col items-center gap-[1.5vh] w-full">
+                {links.map((l) => (
+                  <Link
+                    href={l.href}
+                    key={l.title}
+                    className="
+                      relative
+                      font-hand font-bold
+                      w-[clamp(220px,25vh,280px)]
+                      aspect-360/172
+                      bg-[url(/button.avif)] bg-contain bg-no-repeat bg-center
+                      flex items-center justify-center
+                      text-[clamp(1.1rem,2.4vh,1.5rem)]
+                      text-[#4a3421]
+                      whitespace-nowrap 
+                      pb-[1%] px-[15%] text-center leading-tight
+                      transition-all duration-300 ease-out
+                      hover:scale-105 hover:brightness-110
+                      active:scale-95
+                    ">
+                    {l.title}
+                  </Link>
+                ))}
+              </nav>
+            </div>
+          </div>
         </div>
       </section>
+
       <section id="about" className="min-h-screen w-full bg-[#faf6eb]">
         <div className="flex items-center justify-center bg-[#faf6eb]">
           <div className="max-w-5xl w-full">
@@ -166,20 +167,17 @@ export default function Home() {
       </section>
 
       <button
-        onClick={() => {
-          window.scrollTo({ top: 0, behavior: "smooth" });
-          window.history.pushState(null, "", "/");
-        }}
+        onClick={onClickScrollTop}
         className={`
-        cursor-pointer
-        fixed bottom-6 right-6 z-9999
-        w-10 h-10 md:w-12 md:h-12
-        rounded-full flex items-center justify-center
-        bg-[#e8d5b5] border-2 border-[#8b6914]
-        text-[#3d3226] font-bold
-        shadow-[0_4px_8px_rgba(0,0,0,0.3),inset_0_2px_4px_rgba(255,255,255,0.5)]
-        hover:bg-[#f0e0c0] hover:scale-110 active:scale-100
-        transition-all duration-300 ease-in-out
+          cursor-pointer
+          fixed bottom-6 right-6 z-9999
+          w-10 h-10 md:w-12 md:h-12
+          rounded-full flex items-center justify-center
+          bg-[#e8d5b5] border-2 border-[#8b6914]
+          text-[#3d3226] font-bold
+          shadow-[0_4px_8px_rgba(0,0,0,0.3),inset_0_2px_4px_rgba(255,255,255,0.5)]
+          hover:bg-[#f0e0c0] hover:scale-110 active:scale-100
+          transition-all duration-300 ease-in-out
     ${showScrollTop ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 translate-y-4 pointer-events-none"}
   `}>
         <svg className="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

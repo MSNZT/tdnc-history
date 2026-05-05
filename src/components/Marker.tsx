@@ -27,6 +27,7 @@ export const MarkerMap = ({ marker, handleSelect, isSelected, position }: Marker
       }}>
       <img
         src={marker.type === "artist" ? "/brush.webp" : "/pencil.webp"}
+        style={{ transform: marker.rotate ? `rotate(${marker.rotate}deg)` : "none" }}
         className="w-full h-full object-contain pointer-events-none"
         alt={marker.author}
         draggable={false}
