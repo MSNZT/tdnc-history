@@ -28,7 +28,7 @@ export default function Home() {
 
   return (
     <main className="relative min-h-screen w-full bg-black flex flex-col items-center justify-start">
-      <section className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-[#d7c5a9]">
+      {/* <section className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-[#d7c5a9]">
         <div className="absolute inset-0 z-0">
           <Image src="/main-bg.webp" alt="background" fill priority className="object-cover object-top" sizes="100vw" />
         </div>
@@ -91,6 +91,83 @@ export default function Home() {
                       hover:scale-105 hover:brightness-110
                       active:scale-95
                     ">
+                    {l.title}
+                  </Link>
+                ))}
+              </nav>
+            </div>
+          </div>
+        </div>
+      </section> */}
+
+      <section className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-[#d7c5a9]">
+        <div className="absolute inset-0 z-0">
+          <Image src="/main-bg.webp" alt="background" fill priority className="object-cover object-top" sizes="100vw" />
+        </div>
+
+        <div className="relative z-10 w-full h-full max-w-5xl mx-auto">
+          {/* 
+      Заменили top-[24%] на динамический отступ через pt.
+      На мобилках минимум 160px, на десктопе минимум 260px.
+      Если экран высокий, сработает 24vh/28vh. Если низкий и широкий — сработает px.
+    */}
+          <div className="absolute inset-x-0 top-0 flex flex-col items-center w-full gap-[1vh] pt-[max(160px,24vh)] md:pt-[max(260px,28vh)]">
+            <h1 className="flex flex-col items-center text-center gap-1 group">
+              <span className="font-badscript text-[clamp(1.1rem,2.2vh,1.8rem)] leading-tight text-stone-800">
+                Традиционные духовно-нравственные
+              </span>
+              <span className="uppercase text-red-900 font-ptserif text-[clamp(1.4rem,4.2vh,2.5rem)] leading-none font-bold tracking-tight">
+                ценности через Российскую культуру
+              </span>
+              <span className="font-badscript text-[clamp(0.9rem,1.8vh,1.6rem)] text-stone-700">
+                (писатели, поэты, художники)
+              </span>
+            </h1>
+
+            <div className="relative flex flex-col items-center gap-[1.5vh] w-full mt-[2vh]">
+              <Link
+                href="#about"
+                className="
+            absolute
+            -top-6
+            right-[5%] md:right-[15%] lg:right-[20%]
+            cursor-pointer
+            w-8 h-8 
+            rounded-full 
+            flex items-center justify-center
+            bg-[#e8d5b5]
+            border-2 border-[#8b6914]
+            text-[#3d3226]
+            font-serif text-2xl font-bold
+            shadow-[0_4px_8px_rgba(0,0,0,0.3),inset_0_2px_4px_rgba(255,255,255,0.5)]
+            hover:bg-[#f0e0c0]
+            hover:scale-110
+            transition-all duration-300
+            z-20
+          ">
+                i
+              </Link>
+
+              <nav className="flex flex-col items-center gap-[1.5vh] w-full">
+                {links.map((l) => (
+                  <Link
+                    href={l.href}
+                    key={l.title}
+                    className="
+                relative
+                font-hand font-bold
+                w-[clamp(220px,25vh,280px)]
+                aspect-360/172
+                bg-[url(/button.avif)] bg-contain bg-no-repeat bg-center
+                flex items-center justify-center
+                text-[clamp(1.1rem,2.4vh,1.5rem)]
+                text-[#4a3421]
+                whitespace-nowrap 
+                pb-[1%] px-[15%] text-center leading-tight
+                transition-all duration-300 ease-out
+                hover:scale-105 hover:brightness-110
+                active:scale-95
+              ">
                     {l.title}
                   </Link>
                 ))}
