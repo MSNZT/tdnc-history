@@ -33,11 +33,8 @@ export default function Home() {
           <Image src="/main-bg.webp" alt="background" fill priority className="object-cover object-top" sizes="100vw" />
         </div>
 
-        {/* Основной контейнер контента */}
         <div className="relative z-10 w-full h-full max-w-5xl mx-auto">
-          {/* Позиционируем весь блок контента */}
-          <div className="absolute top-[28%] left-1/2 -translate-x-1/2 flex flex-col items-center w-full gap-[2vh]">
-            {/* Заголовок */}
+          <div className="absolute top-[23%] md:top-[28%] left-1/2 -translate-x-1/2 flex flex-col items-center w-full gap-[1vh]">
             <h1 className="flex flex-col items-center text-center gap-1 group">
               <span className="font-badscript text-[clamp(1.1rem,2.2vh,1.8rem)] leading-tight text-stone-800">
                 Традиционные духовно-нравственные
